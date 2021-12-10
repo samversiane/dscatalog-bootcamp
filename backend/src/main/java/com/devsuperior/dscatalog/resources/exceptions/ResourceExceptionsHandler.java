@@ -14,7 +14,7 @@ import java.time.Instant;
 public class ResourceExceptionsHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request){
+    public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         StandardError standardError = new StandardError();
         standardError.setTimestamp(Instant.now());
@@ -26,7 +26,7 @@ public class ResourceExceptionsHandler {
     }
 
     @ExceptionHandler(DataBaseException.class)
-    public ResponseEntity<StandardError> dataBase(DataBaseException e, HttpServletRequest request){
+    public ResponseEntity<StandardError> dataBase(DataBaseException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError standardError = new StandardError();
         standardError.setTimestamp(Instant.now());
