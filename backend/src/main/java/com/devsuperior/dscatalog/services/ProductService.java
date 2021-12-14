@@ -52,11 +52,11 @@ public class ProductService {
     public ProductDTO update(Long id, ProductDTO productDTO) {
         try {
             Product entity = productRepository.getOne(id);
-            DtoToEntity(productDTO, entity);
+             DtoToEntity(productDTO, entity);
             entity = productRepository.save(entity);
             return new ProductDTO(entity);
         } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Id not found" + id);
+            throw new ResourceNotFoundException("Id not found: " + id);
         }
     }
 
@@ -64,7 +64,7 @@ public class ProductService {
         try {
             productRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Id not found " + id);
+            throw new ResourceNotFoundException("Id not found: " + id);
         } catch (DataIntegrityViolationException e) {
             throw new DataBaseException("Integrity violation");
         }
