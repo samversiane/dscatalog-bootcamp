@@ -36,13 +36,13 @@ public class ProductServiceTests {
     @Mock
     CategoryRepository categoryRepository;
 
-    private long existingId;
-    private long nonExistingId;
-    private long existingIdWithRelationship;
+    private Long existingId;
+    private Long nonExistingId;
+    private Long existingIdWithRelationship;
     private Product product;
     private PageImpl<Product> page;
     private Category category;
-    ProductDTO productDTO;
+    private ProductDTO productDTO;
 
 
     @BeforeEach

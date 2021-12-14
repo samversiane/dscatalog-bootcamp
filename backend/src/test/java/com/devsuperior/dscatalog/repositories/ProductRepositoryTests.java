@@ -17,9 +17,9 @@ public class ProductRepositoryTests {
     @Autowired
     private ProductRepository productRepository;
 
-    private long existingId;
-    private long nonexistentId;
-    long countTotalProducts;
+    private Long existingId;
+    private Long nonexistentId;
+    private Long countTotalProducts;
 
     @BeforeEach
     public void setUp() {
