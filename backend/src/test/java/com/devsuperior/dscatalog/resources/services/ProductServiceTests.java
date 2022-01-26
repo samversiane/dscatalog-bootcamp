@@ -1,10 +1,11 @@
-package com.devsuperior.dscatalog.services;
+package com.devsuperior.dscatalog.resources.services;
 
 import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.repositories.ProductRepository;
+import com.devsuperior.dscatalog.services.ProductService;
 import com.devsuperior.dscatalog.services.exceptions.DataBaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 import com.devsuperior.dscatalog.tests.Factory;
@@ -61,6 +62,8 @@ public class ProductServiceTests {
 
         Mockito.when(productRepository.findById(existingId)).thenReturn(Optional.of(product));
         Mockito.when(productRepository.findById(nonExistingId)).thenReturn(Optional.empty());
+
+        Mockito.when(productRepository.find(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(page);
 
         Mockito.when(productRepository.save(ArgumentMatchers.any())).thenReturn(product);
 
@@ -126,10 +129,9 @@ public class ProductServiceTests {
 
         Pageable pageable = PageRequest.of(0, 10);
 
-        Page<ProductDTO> result = productService.find(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), pageable);
+        Page<ProductDTO> result = productService.find("", 0L, pageable);
 
         Assertions.assertNotNull(result);
-        Mockito.verify(productRepository).findAll(pageable);
     }
 
     @Test

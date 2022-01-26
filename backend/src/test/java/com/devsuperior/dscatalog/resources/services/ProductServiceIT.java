@@ -1,8 +1,10 @@
-package com.devsuperior.dscatalog.services;
+package com.devsuperior.dscatalog.resources.services;
 
 import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.repositories.ProductRepository;
+import com.devsuperior.dscatalog.services.ProductService;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
+import com.devsuperior.dscatalog.tests.TokenUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,7 +70,7 @@ public class ProductServiceIT {
     public void findAllPagedShouldReturnEmptyPageWhenPageDoesNotExists() {
         PageRequest pageRequest = PageRequest.of(50, 10);
 
-        Page<ProductDTO> result = productService.find(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), pageRequest);
+        Page<ProductDTO> result = productService.find("", 0L, pageRequest);
 
         Assertions.assertTrue(result.isEmpty());
     }
@@ -78,7 +80,7 @@ public class ProductServiceIT {
 
         PageRequest pageRequest = PageRequest.of(0, 10, Sort.by("name"));
 
-        Page<ProductDTO> result = productService.find(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), pageRequest);
+        Page<ProductDTO> result = productService.find("", 0L, pageRequest);
 
         Assertions.assertFalse(result.isEmpty());
         Assertions.assertEquals("Macbook Pro", result.getContent().get(0).getName());
