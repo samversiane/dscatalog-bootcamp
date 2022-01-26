@@ -6,6 +6,7 @@ import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -55,7 +56,7 @@ public class ProductServiceIT {
 
         PageRequest pageRequest = PageRequest.of(0, 10);
 
-        Page<ProductDTO> result = productService.findAllPaged(pageRequest);
+        Page<ProductDTO> result = productService.find("", 0L, pageRequest);
 
         Assertions.assertFalse(result.isEmpty());
         Assertions.assertEquals(0, result.getNumber());
@@ -67,7 +68,7 @@ public class ProductServiceIT {
     public void findAllPagedShouldReturnEmptyPageWhenPageDoesNotExists() {
         PageRequest pageRequest = PageRequest.of(50, 10);
 
-        Page<ProductDTO> result = productService.findAllPaged(pageRequest);
+        Page<ProductDTO> result = productService.find(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), pageRequest);
 
         Assertions.assertTrue(result.isEmpty());
     }
@@ -77,7 +78,7 @@ public class ProductServiceIT {
 
         PageRequest pageRequest = PageRequest.of(0, 10, Sort.by("name"));
 
-        Page<ProductDTO> result = productService.findAllPaged(pageRequest);
+        Page<ProductDTO> result = productService.find(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), pageRequest);
 
         Assertions.assertFalse(result.isEmpty());
         Assertions.assertEquals("Macbook Pro", result.getContent().get(0).getName());

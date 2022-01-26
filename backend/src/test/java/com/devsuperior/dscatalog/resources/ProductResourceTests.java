@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-@WebMvcTest(ProductResources.class)
+@WebMvcTest(ProductResource.class)
 public class ProductResourceTests {
 
     @Autowired
@@ -55,7 +55,7 @@ public class ProductResourceTests {
         page = new PageImpl<>(List.of(productDTO));
         jsonBody = objectMapper.writeValueAsString(productDTO);
 
-        Mockito.when(productService.findAllPaged(ArgumentMatchers.any())).thenReturn(page);
+        Mockito.when(productService.find(ArgumentMatchers.anyString(), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(page);
 
         Mockito.when(productService.findById(existingId)).thenReturn(productDTO);
         Mockito.when(productService.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
